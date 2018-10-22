@@ -1,0 +1,21 @@
+creator: Bill
+company: Bob
+
+title: Cool title
+subtitle: Food is good
+cover_notes: Other notes go here
+date: A long time ago
+
+overview_file: OVERVIEW
+
+authors: John, Jill, & Betty
+
+annotations:
+  md_A:
+    path: FolderA/Markdown file.md
+    description: This is an example markdown file.
+    comments: This is an exciting comment.
+  md_B:
+    path: FolderB/Markdown file.md
+    description: This is an example markdown file.
+    comments: This is an exciting comment.

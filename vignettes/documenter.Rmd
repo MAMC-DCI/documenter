@@ -1,0 +1,47 @@
+---
+title: "Vignette Title"
+author: "Vignette Author"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+# Overview
+It is sometimes necessary to document all the files in a directory. Using the function *document_it*, all files can quickly and thoroughly be documented automatically. By creating an annotation file, additional comments can be added for each file without additional intervention.
+
+
+# Usage
+The package can be loaded via the *library* function.
+```r
+# Load the package.
+library(documenter)
+```
+
+
+The function *document_it* accepts 3 arguments:
+
+
+- *input_directory*: The directory of files to be documented.
+- *output_file*: The path to the output file that will be generated.
+- *annotation_file*: The path to the annotation file if present.
+
+
+An example use case is provided below.
+```r
+document_it(
+  input_directory = "man",
+  output_file = "documentation",
+  annotation_file = NULL
+)
+```
