@@ -114,14 +114,16 @@ document_it <- function(
 
   # Define style guides.
   title_style <- "heading 1"
-  section_title <- "heading 2"
+  section_title_style <- "table title"
 
   denv <- new.env()
   # Modify document.xml by replacing tags with their corresponding annotation.
   denv$docx <- officer::read_docx() %>%
     officer::body_add_par(
       .,
-      annotations$tags["title"],
+      htmltools::htmlEscape(
+        gsub("$\n|$\r", "", annotations$tags["title"])
+      ),
       style = "graphic title"
     )
   officer::cursor_end(denv$docx)
@@ -132,7 +134,7 @@ document_it <- function(
   insert_paragraphs(denv, annotations$tags["authors"])
   officer::body_add_break(denv$docx, pos = "after")
   officer::cursor_end(denv$docx)
-  officer::body_add_toc(denv$docx)
+  officer::body_add_toc(denv$docx, style  = NULL, level = 10)
   officer::cursor_end(denv$docx)
   officer::body_add_break(denv$docx, pos = "after")
   officer::cursor_end(denv$docx)
@@ -203,8 +205,8 @@ document_it <- function(
     ){
       officer::body_add_par(
         denv$docx,
-        "Description: ",
-        style = section_title
+        "Description",
+        style = section_title_style
       )
       insert_paragraphs(denv, description)
       has_metadata <- TRUE
@@ -216,8 +218,8 @@ document_it <- function(
     ){
       officer::body_add_par(
         denv$docx,
-        "Comments: ",
-        style = section_title
+        "Comments",
+        style = section_title_style
       )
       insert_paragraphs(denv, comments)
       has_metadata <- TRUE
@@ -225,8 +227,8 @@ document_it <- function(
     if(has_metadata){
       officer::body_add_par(
         denv$docx,
-        "Document body: ",
-        style = section_title
+        "Document Contents",
+        style = section_title_style
       )
     }
     # Add the document contents.
