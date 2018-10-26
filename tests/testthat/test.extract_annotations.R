@@ -20,21 +20,21 @@ test_that(
 
     # title
     expect_silent({
-      yml <- extract_annotations(default_annotation_file)
+      yml <- extract_annotations(default_annotation_file, "A title")
     })
 
     expect_silent({
-      yml <- extract_annotations(annotation_file_1)
+      yml <- extract_annotations(annotation_file_1, "A title")
     })
 
     # An empty file.
     expect_silent({
-      yml <- extract_annotations(annotation_file_2)
+      yml <- extract_annotations(annotation_file_2, "A title")
     })
 
     # Invalid yml object.
     expect_silent({
-      extract_annotations("A string")
+      extract_annotations("A string", "A title")
     })
   }
 )

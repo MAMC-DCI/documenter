@@ -4,7 +4,8 @@
 \alias{document_it}
 \title{Generate documentation for the files of a directory.}
 \usage{
-document_it(input_directory, output_file, annotation_file = NULL)
+document_it(input_directory, output_file, annotation_file = NULL,
+  title = NULL)
 }
 \arguments{
 \item{input_directory}{The directory of files to be documented.}
@@ -12,6 +13,8 @@ document_it(input_directory, output_file, annotation_file = NULL)
 \item{output_file}{The path to the output file that will be generated.}
 
 \item{annotation_file}{The path to the annotation file if present.}
+
+\item{title}{The title of the output document.}
 }
 \description{
 Generate documentation for the files of a directory.

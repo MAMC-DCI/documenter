@@ -1,21 +1,19 @@
-creator: Bill
-company: Bob
-
-title: Cool title
-subtitle: Food is good
-cover_notes: Other notes go here
-date: A long time ago
-
+creator: Zach
+company: Big company
+title: Documentation
+subtitle: Interesting document descriptions
+cover_notes: Some additional notes
+date: ~
 overview_file: OVERVIEW
-
-authors: John, Jill, & Betty
-
+author:
+  author_1: Zach
+  author_2: Someone else
 annotations:
-  md_A:
-    path: FolderA/Markdown file.md
-    description: This is an example markdown file.
-    comments: This is an exciting comment.
-  md_B:
-    path: FolderB/Markdown file.md
-    description: This is an example markdown file.
-    comments: This is an exciting comment.
+  annotation_1:
+    path: FolderA/documenter.html
+    description: An HTML document
+    comments: Some comments.\nEven more comments
+  annotation_2:
+    path: FolderB/documenter.R
+    description: An R file
+    comments: This document contains code.\nIt was generated from the .Rmd file.

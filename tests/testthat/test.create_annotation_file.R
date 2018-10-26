@@ -79,8 +79,12 @@ test_that(
     # title
     expect_silent({
       new_dir <- file.path(dirtemp,"b")
+      if(dir.exists(new_dir)){
+        unlink(new_dir, recursive = TRUE, force = TRUE)
+      }
       dir.create(new_dir)
       valid_annotation_file <- file.path(new_dir, "annotation_file.yml")
+
       create_annotation_file(
         title = valid_title,
         annotation_file = valid_annotation_file
@@ -90,8 +94,11 @@ test_that(
     # Fix title.
     expect_silent({
       new_dir <- file.path(dirtemp,"c")
+      if(dir.exists(new_dir)){
+        unlink(new_dir, recursive = TRUE, force = TRUE)
+      }
       dir.create(new_dir)
-      valid_annotation_file <- file.path(new_dir, "annotation_file.yml")
+      valid_annotation_file <- file.path(dirtemp, "annotation_file.yml")
       create_annotation_file(
         title = NULL,
         annotation_file = valid_annotation_file
@@ -101,7 +108,10 @@ test_that(
     # Name annotation_file.
     expect_silent({
       new_dir <- file.path(dirtemp,"d")
-      valid_annotation_file <- file.path(new_dir, "annotation_file.yml")
+      if(dir.exists(new_dir)){
+        unlink(new_dir, recursive = TRUE, force = TRUE)
+      }
+      valid_annotation_file <- file.path(dirtemp, "annotation_file.yml")
       old_dir <- getwd()
       dir.create(new_dir)
       setwd(new_dir)

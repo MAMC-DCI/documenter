@@ -1,4 +1,4 @@
-context("documenter")
+context("document_it")
 
 test_that(
   "invalid inputs produce an error",
@@ -146,7 +146,7 @@ test_that(
 )
 
 test_that(
-  "valid input produce valid output",
+  "valid inputs produce valid output",
   {
     # Generate data.
     set.seed(1)
@@ -155,7 +155,7 @@ test_that(
       "extdata", "example"
     )
     new_output_dir <- tempdir()
-    valid_output_file <- file.path(new_output_dir, "banana")
+    valid_output_file <- file.path(new_output_dir, "test")
 
     expect_silent({
       document_it(

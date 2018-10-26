@@ -4,10 +4,12 @@
 \alias{extract_annotations}
 \title{Extract annotations from a yaml annotation file.}
 \usage{
-extract_annotations(annotation_yml)
+extract_annotations(annotation_yml, title)
 }
 \arguments{
 \item{annotation_yml}{The yaml object read by document_it.}
+
+\item{title}{The title of the output document.}
 }
 \description{
 Extract annotations from a yaml annotation file.

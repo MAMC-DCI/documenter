@@ -11,6 +11,8 @@ Description: It is sometimes necessary to create documentation for all files in 
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+Imports: officer,
+    magrittr
 Suggests: covr,
     testthat,
     knitr,
