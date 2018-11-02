@@ -14,7 +14,7 @@ insert_paragraphs <- function(
 ){
   # Append each element.
   vec <- unlist(vec, recursive = TRUE)
-  valid_elements <- gsub("[[:space:]]", "", vec) != ""
+  valid_elements <- gsub("[[:space:]]|\n|\n\r|\r", "", vec) != ""
   vec <- vec[valid_elements]
 
   for(i in vec){

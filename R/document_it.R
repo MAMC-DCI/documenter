@@ -134,7 +134,13 @@ document_it <- function(
   insert_paragraphs(denv, annotations$tags["authors"])
   officer::body_add_break(denv$docx, pos = "after")
   officer::cursor_end(denv$docx)
-  officer::body_add_toc(denv$docx, style  = NULL, level = 10)
+  officer::body_add_par(
+    denv$docx,
+    "Table of Contents",
+    style = section_title_style
+  )
+  officer::cursor_end(denv$docx)
+  officer::body_add_toc(denv$docx, style  = NULL, level = 1)
   officer::cursor_end(denv$docx)
   officer::body_add_break(denv$docx, pos = "after")
   officer::cursor_end(denv$docx)
@@ -182,20 +188,29 @@ document_it <- function(
 
   # Add documents to the docx object.
   for(i in seq_along(rownames(annotation_df))){
+    # Add a page break.
+    officer::body_add_break(denv$docx, pos = "after")
+
     # Retrieve data.
     description <- unlist(strsplit(annotation_df[i,"description"], "\\\\n"))
     if(is.null(description) || (length(description) == 0)){description <- " "}
     comments <- unlist(strsplit(annotation_df[i,"comments"], "\\\\n"))
     if(is.null(comments) || (length(comments) == 0)){comments <- " "}
     contents <- readLines(annotation_df[i,"path"])
+    # Clean the contents.
+    contents <- gsub("\n|\r|\n\r", "", contents)
 
     # Append data.
     # Add the page title.
-    officer::body_add_break(denv$docx)
+    section_name <- htmltools::htmlEscape(rownames(annotation_df)[i])
+    section_name <- gsub(
+      "^[[:space:]]|\n|\r|\n\r|[[:space:]]$", "", section_name
+    )
     officer::body_add_par(
       denv$docx,
-      htmltools::htmlEscape(rownames(annotation_df)[i]),
-      style = title_style
+      section_name,
+      style = title_style,
+      pos = "on"
     )
     has_metadata <- FALSE
     # Add the description if it is present.
@@ -205,7 +220,7 @@ document_it <- function(
     ){
       officer::body_add_par(
         denv$docx,
-        "Description",
+        "--- Description ---",
         style = section_title_style
       )
       insert_paragraphs(denv, description)
@@ -218,28 +233,25 @@ document_it <- function(
     ){
       officer::body_add_par(
         denv$docx,
-        "Comments",
+        "--- Comments ---",
         style = section_title_style
       )
       insert_paragraphs(denv, comments)
       has_metadata <- TRUE
     }
-    if(has_metadata){
-      officer::body_add_par(
-        denv$docx,
-        "Document Contents",
-        style = section_title_style
-      )
-    }
     # Add the document contents.
+    officer::body_add_par(
+      denv$docx,
+      "--- Document Contents ---",
+      style = section_title_style
+    )
     insert_paragraphs(denv, contents)
   }
 
   # Print the docx object to a file.
   print(denv$docx, target = output_file)
 
-  # Destory denv.
+  # Destroy denv.
   rm(denv)
-
 
 }
