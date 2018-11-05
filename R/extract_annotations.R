@@ -58,8 +58,9 @@ extract_annotations <- function(
   ]
   for(i in other_tags){
     if(i %in% names(annotation_mat)){
-      value <- unlist(annotation_mat[[i]], recursive = TRUE)[1]
+      value <- unlist(annotation_mat[[i]], recursive = TRUE)
       if(!is.null(value)){
+        value <- paste0(value, collapse = ", ")
         tags[i] <- value
       }
     }
