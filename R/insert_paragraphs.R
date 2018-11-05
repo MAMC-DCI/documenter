@@ -10,14 +10,19 @@
 insert_paragraphs <- function(
   denv,
   vec,
-  style = "Normal"
+  style = "Paragraph Font"
 ){
   # Append each element.
   vec <- unlist(vec, recursive = TRUE)
   valid_elements <- gsub("[[:space:]]|\n|\n\r|\r", "", vec) != ""
   vec <- vec[valid_elements]
+  vec <- gsub("\n|\n\r", "", vec)
 
   for(i in vec){
+    # Retrieve text.
+    string <- i
+
+    # Create xml.
     new_string <- paste0(
       '<w:p xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/',
       '2006/main\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/',
@@ -27,20 +32,26 @@ insert_paragraphs <- function(
       "<w:pStyle w:val=\"",
       style,
       "\"/>",
-      htmltools::htmlEscape(i),
+      htmltools::htmlEscape(string),
       "</w:p>"
     )
 
     # Update obj.
-    new_string <- xml2::as_xml_document(new_string)
-    cursor_pos <- denv$docx$doc_obj$get_at_cursor()
-    xml2::xml_add_sibling(
-      cursor_pos,
-      new_string,
-      .where = "after",
-      .copy = TRUE
+    tryCatch(
+      {
+        new_string <- iconv(new_string, to = "latin1")
+        new_string <- xml2::as_xml_document(new_string)
+        cursor_pos <- denv$docx$doc_obj$get_at_cursor()
+        xml2::xml_add_sibling(
+          cursor_pos,
+          new_string,
+          .where = "after",
+          .copy = TRUE
+        )
+        officer::cursor_forward(denv$docx)
+      },
+      error = function(e){}
     )
-    officer::cursor_end(denv$docx)
   }
 
   # Return nothing.

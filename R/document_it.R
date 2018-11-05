@@ -151,14 +151,20 @@ document_it <- function(
   )
   officer::cursor_end(denv$docx)
   insert_paragraphs(denv, overview)
+  officer::cursor_end(denv$docx)
   officer::body_add_break(denv$docx, pos = "after")
+  officer::cursor_end(denv$docx)
 
   # Generate file list and match to annotations.
   files <- list.files(
     input_directory,
-    recursive = TRUE, all.files = TRUE, full.names = TRUE
+    recursive = TRUE, all.files = TRUE, full.names = TRUE,
+    include.dirs = FALSE, no.. = TRUE
   )
   files <- fix_path(files)
+  # Remove the git folder.
+  files <- files[!grepl("[.]git", files) & !grepl("[.]gitignore", files)]
+  files <- files[!grepl("[.]Rproj.user", files)]
   # Remove the annotation and overview files used in this analysis.
   if(!is.null(annotation_file)){
     files <- files[files != annotation_file]
@@ -188,6 +194,9 @@ document_it <- function(
 
   # Add documents to the docx object.
   for(i in seq_along(rownames(annotation_df))){
+    # Move to the end of the document.
+    officer::cursor_end(denv$docx)
+
     # Add a page break.
     officer::body_add_break(denv$docx, pos = "after")
 
@@ -196,7 +205,14 @@ document_it <- function(
     if(is.null(description) || (length(description) == 0)){description <- " "}
     comments <- unlist(strsplit(annotation_df[i,"comments"], "\\\\n"))
     if(is.null(comments) || (length(comments) == 0)){comments <- " "}
-    contents <- readLines(annotation_df[i,"path"])
+    tryCatch(
+      {
+        contents <- readLines(annotation_df[i,"path"])
+      },
+      error = function(e){
+        contents <- "File not found!"
+      }
+    )
     # Clean the contents.
     contents <- gsub("\n|\r|\n\r", "", contents)
 
@@ -247,6 +263,23 @@ document_it <- function(
     )
     insert_paragraphs(denv, contents)
   }
+
+  # complete <- FALSE
+  # while(!complete){
+  #   officer::cursor_begin(denv$docx)
+  #   tryCatch(
+  #     {
+  #       officer::cursor_reach(denv$docx, "\n")
+  #       officer::body_remove(denv$docx)
+  #     },
+  #     error = function(e){
+  #       complete <- TRUE
+  #     },
+  #     warning = function(e){
+  #       complete <- TRUE
+  #     }
+  #   )
+  # }
 
   # Print the docx object to a file.
   print(denv$docx, target = output_file)
