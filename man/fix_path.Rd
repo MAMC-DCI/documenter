@@ -12,6 +12,3 @@ fix_path(path)
 \description{
 Fix a file path.
 }
-\examples{
-fix_path(path)
-}

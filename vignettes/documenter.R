@@ -4,3 +4,10 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
+## ----eval=FALSE----------------------------------------------------------
+#  document_it(
+#    input_directory = "man",
+#    output_file = "documentation",
+#    annotation_file = NULL
+#  )
+

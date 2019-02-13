@@ -3,3 +3,4 @@
 export(create_annotation_file)
 export(document_it)
 importFrom(magrittr,"%>%")
+importFrom(utils,file_test)

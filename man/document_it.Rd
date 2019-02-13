@@ -20,9 +20,11 @@ document_it(input_directory, output_file, annotation_file = NULL,
 Generate documentation for the files of a directory.
 }
 \examples{
+\dontrun{
 document_it(
 input_directory = "man",
 output_file = "documentation",
 annotation_file = NULL
 )
+}
 }

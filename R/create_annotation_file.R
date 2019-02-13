@@ -3,6 +3,8 @@
 #' @param title The title within the documentation file.
 #' @param annotation_file The path to the annotation file to be written.
 #'
+#' @importFrom utils file_test
+#'
 #' @export
 #'
 #' @examples

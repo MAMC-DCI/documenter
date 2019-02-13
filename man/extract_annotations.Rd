@@ -14,6 +14,3 @@ extract_annotations(annotation_yml, title)
 \description{
 Extract annotations from a yaml annotation file.
 }
-\examples{
-extract_annotations(annotation_yml)
-}

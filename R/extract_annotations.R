@@ -2,9 +2,6 @@
 #'
 #' @param annotation_yml The yaml object read by document_it.
 #' @param title The title of the output document.
-#'
-#' @examples
-#' extract_annotations(annotation_yml)
 extract_annotations <- function(
   annotation_yml,
   title

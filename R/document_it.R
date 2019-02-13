@@ -8,13 +8,16 @@
 #' @export
 #'
 #' @importFrom magrittr %>%
+#' @importFrom utils file_test
 #'
 #' @examples
+#' \dontrun{
 #' document_it(
 #' input_directory = "man",
 #' output_file = "documentation",
 #' annotation_file = NULL
 #' )
+#' }
 document_it <- function(
   input_directory,
   output_file,
@@ -106,7 +109,15 @@ document_it <- function(
     overview_file <- file.path(
       input_directory, annotations$tags["overview_file"]
     )
-    overview <- readLines(overview_file)
+    tryCatch(
+      {
+        overview <- readLines(overview_file)
+      },
+      error = function(e){
+        overview_file <- ""
+        overview <- " "
+      }
+    )
   }else{
     overview_file <- ""
     overview <- " "
@@ -118,20 +129,20 @@ document_it <- function(
 
   denv <- new.env()
   # Modify document.xml by replacing tags with their corresponding annotation.
-  denv$docx <- officer::read_docx() %>%
-    officer::body_add_par(
-      .,
-      htmltools::htmlEscape(
-        gsub("$\n|$\r", "", annotations$tags["title"])
-      ),
-      style = "graphic title"
-    )
+  denv$docx <- officer::read_docx()
+  officer::body_add_par(
+    denv$docx,
+    htmltools::htmlEscape(
+      gsub("$\n|$\r", "", annotations$tags["title"])
+    ),
+    style = "graphic title"
+  )
   officer::cursor_end(denv$docx)
   insert_paragraphs(denv, annotations$tags["subtitle"])
   insert_paragraphs(denv, annotations$tags["cover_notes"])
   insert_paragraphs(denv, annotations$tags["date"])
-  officer::cursor_end(denv$docx)
   insert_paragraphs(denv, annotations$tags["authors"])
+  officer::cursor_end(denv$docx)
   officer::body_add_break(denv$docx, pos = "after")
   officer::cursor_end(denv$docx)
   officer::body_add_par(
@@ -162,9 +173,21 @@ document_it <- function(
     include.dirs = FALSE, no.. = TRUE
   )
   files <- fix_path(files)
-  # Remove the git folder.
-  files <- files[!grepl("[.]git", files) & !grepl("[.]gitignore", files)]
-  files <- files[!grepl("[.]Rproj.user", files)]
+  # Remove the .git and .Rproj.user folders.
+  split_filenames <- strsplit(files, "/|\\\\")
+  is_git_file <- lapply(
+    split_filenames,
+    function(x){any(grepl("^[.]git$", x))}
+  )
+  is_git_file <- unlist(is_git_file)
+  is_rproj_file <- lapply(
+    split_filenames,
+    function(x){any(grepl("^[.]Rproj.user$", x))}
+  )
+  is_rproj_file <- unlist(is_rproj_file)
+
+  files <- files[!is_rproj_file & !is_git_file]
+
   # Remove the annotation and overview files used in this analysis.
   if(!is.null(annotation_file)){
     files <- files[files != annotation_file]
@@ -194,6 +217,22 @@ document_it <- function(
 
   # Add documents to the docx object.
   for(i in seq_along(rownames(annotation_df))){
+    contents <- "File not found!"
+    try({
+      contents <- readLines(annotation_df[i,"path"])
+      contents[contents == ""] <- " "
+    })
+    # tryCatch(
+    #   {
+    #     contents <- readLines(annotation_df[i,"path"])
+    #   },
+    #   error = function(e){
+    #     contents <- "File not found!"
+    #   }
+    # )
+    # Clean the contents.
+    contents <- gsub("\n|\r|\n\r", "", contents)
+
     # Move to the end of the document.
     officer::cursor_end(denv$docx)
 
@@ -205,16 +244,6 @@ document_it <- function(
     if(is.null(description) || (length(description) == 0)){description <- " "}
     comments <- unlist(strsplit(annotation_df[i,"comments"], "\\\\n"))
     if(is.null(comments) || (length(comments) == 0)){comments <- " "}
-    tryCatch(
-      {
-        contents <- readLines(annotation_df[i,"path"])
-      },
-      error = function(e){
-        contents <- "File not found!"
-      }
-    )
-    # Clean the contents.
-    contents <- gsub("\n|\r|\n\r", "", contents)
 
     # Append data.
     # Add the page title.
@@ -222,12 +251,14 @@ document_it <- function(
     section_name <- gsub(
       "^[[:space:]]|\n|\r|\n\r|[[:space:]]$", "", section_name
     )
+    officer::cursor_end(denv$docx)
     officer::body_add_par(
       denv$docx,
       section_name,
       style = title_style,
       pos = "on"
     )
+    officer::cursor_end(denv$docx)
     has_metadata <- FALSE
     # Add the description if it is present.
     if(
@@ -243,6 +274,7 @@ document_it <- function(
       has_metadata <- TRUE
     }
     # Add comments if present.
+    officer::cursor_end(denv$docx)
     if(
       (length(comments) > 1) ||
       (comments[1] != " ")
@@ -256,12 +288,17 @@ document_it <- function(
       has_metadata <- TRUE
     }
     # Add the document contents.
+    officer::cursor_end(denv$docx)
     officer::body_add_par(
       denv$docx,
       "--- Document Contents ---",
       style = section_title_style
     )
+    officer::cursor_end(denv$docx)
     insert_paragraphs(denv, contents)
+
+    # Clean up.
+    rm(list = c("comments","description", "contents","section_name"))
   }
 
   # complete <- FALSE

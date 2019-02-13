@@ -39,3 +39,7 @@ document_it(
   annotation_file = NULL
 )
 ```
+
+
+## Disclaimer
+The views expressed are those of the author(s) and do not reflect the official policy of the Department of the Army, the Department of Defense or the U.S. Government.

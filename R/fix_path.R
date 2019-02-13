@@ -1,9 +1,6 @@
 #' Fix a file path.
 #'
 #' @param path The path needing to be fixed.
-#'
-#' @examples
-#' fix_path(path)
 fix_path <- function(
   path
 ){

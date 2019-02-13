@@ -4,19 +4,19 @@
 \alias{insert_paragraphs}
 \title{Insert each element of a vector into a document as a string of paragraphs.}
 \usage{
-insert_paragraphs(denv, vec, style = "Paragraph Font")
+insert_paragraphs(denv, vec)
 }
 \arguments{
 \item{denv}{The environment of the input docx object.}
 
 \item{vec}{The character vector to be inserted. Each element should
 correspond to a separate paragraph.}
-
-\item{style}{The 'officer' package style_id for the paragraph.}
 }
 \description{
 Insert each element of a vector into a document as a string of paragraphs.
 }
 \examples{
+\dontrun{
 insert_paragraphs(obj, vec)
+}
 }
