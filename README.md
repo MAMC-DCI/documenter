@@ -3,8 +3,8 @@ An R package for documenting files
 
 
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/documenter)](https://cran.r-project.org/package=documenter)
-[![Travis-CI Build Status](https://travis-ci.org/mamc-dci/documenter.svg?branch=master)](https://travis-ci.org/mamc-dci/documenter)
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/mamc-dci/documenter?branch=master&svg=true)](https://ci.appveyor.com/project/mamc-dci/documenter)
+[![Travis-CI Build Status](https://travis-ci.org/mamcdci/documenter.svg?branch=master)](https://travis-ci.org/mamcdci/documenter)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/mamcdci/documenter?branch=master&svg=true)](https://ci.appveyor.com/project/mamcdci/documenter)
 [![Coverage Status](https://img.shields.io/codecov/c/github/mamc-dci/documenter/master.svg)](https://codecov.io/github/mamc-dci/documenter?branch=master)
 
 
