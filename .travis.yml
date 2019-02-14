@@ -30,6 +30,9 @@ matrix:
       r: release
       r_check_args: '--as-cran'
 
+r_binary_packages:
+  - stringi
+
 
 # Report coverage.
 r_packages:
