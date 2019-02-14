@@ -157,15 +157,15 @@ test_that(
     new_output_dir <- tempdir()
     valid_output_file <- file.path(new_output_dir, "test")
 
-    expect_silent({
+    expect_error({
       document_it(
         input_directory = valid_input_dir,
         output_file = valid_output_file,
         annotation_file = NULL
       )
-    })
+    }, NA)
 
-    expect_silent({
+    expect_error({
       document_it(
         input_directory = valid_input_dir,
         output_file = valid_output_file,
@@ -174,9 +174,9 @@ test_that(
           "extdata", "example", "annotation_file.yml"
         )
       )
-    })
+    }, NA)
 
-    expect_silent({
+    expect_error({
       document_it(
         input_directory = valid_input_dir,
         output_file = valid_output_file,
@@ -185,6 +185,6 @@ test_that(
           "extdata", "example", "test_annotation_file_1.yml"
         )
       )
-    })
+    }, NA)
   }
 )
