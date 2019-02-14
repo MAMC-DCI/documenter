@@ -30,7 +30,11 @@ insert_paragraphs <- function(
 
     # Create xml.
     new_string <- paste0(
-      '<w:p>',
+      '<w:p xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/',
+      '2006/main\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/',
+      '2006/wordprocessingDrawing\" xmlns:r=\"http://schemas.openxmlformats.',
+      'org/officeDocument/2006/relationships\" xmlns:w14=\"http://schemas.',
+      'microsoft.com/office/word/2010/wordml\">',
       htmltools::htmlEscape(string),
       '</w:p>'
     )
