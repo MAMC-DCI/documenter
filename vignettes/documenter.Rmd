@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 
 
 # Overview
-It is sometimes necessary to document all the files in a directory. Using the function *document_it*, all files can quickly and thoroughly be documented automatically. By creating an annotation file, additional comments can be added for each file without additional intervention.
+It is sometimes necessary to document all the files in a directory. Using the function *document_it*, all files can quickly and thoroughly be aggregated automatically into a double spaced document. By creating an annotation file, additional comments can be added for each file without additional intervention.
 
 
 # Usage
