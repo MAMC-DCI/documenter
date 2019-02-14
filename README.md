@@ -3,10 +3,9 @@ An R package for documenting files
 
 
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/documenter)](https://cran.r-project.org/package=documenter)
-[![Travis-CI Build Status](https://travis-ci.org/zcolburn/documenter.svg?branch=master)](https://travis-ci.org/zcolburn/documenter)
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/zcolburn/documenter?branch=master&svg=true)](https://ci.appveyor.com/project/zcolburn/documenter)
-[![Coverage Status](https://img.shields.io/codecov/c/github/zcolburn/documenter/master.svg)](https://codecov.io/github/zcolburn/documenter?branch=master)
-[![](https://cranlogs.r-pkg.org/badges/documenter)](https://cran.r-project.org/package=documenter)
+[![Travis-CI Build Status](https://travis-ci.org/mamc-dci/documenter.svg?branch=master)](https://travis-ci.org/mamc-dci/documenter)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/mamc-dci/documenter?branch=master&svg=true)](https://ci.appveyor.com/project/mamc-dci/documenter)
+[![Coverage Status](https://img.shields.io/codecov/c/github/mamc-dci/documenter/master.svg)](https://codecov.io/github/mamc-dci/documenter?branch=master)
 
 
 # Installation
@@ -20,7 +19,7 @@ install.packages("documenter")
 ```r
 # Install via GitHub.
 install.packages("devtools")
-devtools::install_github("zcolburn/documenter")
+devtools::install_github("mamc-dci/documenter")
 ```
 
 # Usage
