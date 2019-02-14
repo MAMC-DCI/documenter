@@ -10,6 +10,8 @@ init:
 install:
   ps: Bootstrap
 
+USE_RTOOLS: true
+
 cache:
   - C:\RLibrary
 
