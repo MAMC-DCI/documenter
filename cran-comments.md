@@ -1,3 +1,5 @@
+This is a resubmission.
+
 ## Test environments
 * local OS X install (Windows 10, 64-bit), R 3.4.2
 * osx (on travis-ci), R release
