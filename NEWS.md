@@ -1,6 +1,6 @@
-# documenter 0.1.0
+# documenter 0.1.1
 
-* Added a `NEWS.md` file to track changes to the package.
+* Modified the document_it example and made it runnable. The example in the vignette was also updated.
 
 
 
