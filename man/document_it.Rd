@@ -20,11 +20,10 @@ document_it(input_directory, output_file, annotation_file = NULL,
 Generate documentation for the files of a directory.
 }
 \examples{
-\dontrun{
+input <- system.file("extdata", "example", package = "documenter")
 document_it(
-input_directory = "man",
-output_file = "documentation",
+input_directory = input,
+output_file = file.path(tempdir(), "documentation"),
 annotation_file = NULL
 )
-}
 }

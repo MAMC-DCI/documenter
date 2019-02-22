@@ -11,13 +11,12 @@
 #' @importFrom utils file_test
 #'
 #' @examples
-#' \dontrun{
+#' input <- system.file("extdata", "example", package = "documenter")
 #' document_it(
-#' input_directory = "man",
-#' output_file = "documentation",
+#' input_directory = input,
+#' output_file = file.path(tempdir(), "documentation"),
 #' annotation_file = NULL
 #' )
-#' }
 document_it <- function(
   input_directory,
   output_file,

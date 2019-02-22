@@ -9,13 +9,13 @@ test_that(
       package = "documenter",
       "extdata", "example"
     )
-    valid_output_file <- "banana"
+    valid_output_file <- file.path(tempdir(), "documentation")
 
     # Invalid input_directory.
     expect_error({
       document_it(
         input_directory = NULL,
-        output_file = "banana",
+        output_file = valid_output_file,
         annotation_file = NULL
       )
     })
@@ -23,7 +23,7 @@ test_that(
     expect_error({
       document_it(
         input_directory = data.frame("a"=1,"b"=2),
-        output_file = "banana",
+        output_file = valid_output_file,
         annotation_file = NULL
       )
     })
@@ -31,7 +31,7 @@ test_that(
     expect_error({
       document_it(
         input_directory = c(1),
-        output_file = "banana",
+        output_file = valid_output_file,
         annotation_file = NULL
       )
     })
@@ -39,15 +39,15 @@ test_that(
     expect_error({
       document_it(
         input_directory = c("a","b"),
-        output_file = "banana",
+        output_file = valid_output_file,
         annotation_file = NULL
       )
     })
 
     expect_error({
       document_it(
-        input_directory = "banana",
-        output_file = "banana",
+        input_directory = valid_output_file,
+        output_file = valid_output_file,
         annotation_file = NULL
       )
     })
