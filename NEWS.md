@@ -1,6 +1,12 @@
-# documenter 0.1.1
+# documenter 0.1.2
 
-* Modified the document_it example and made it runnable. The example in the vignette was also updated.
+* Corrected the vignette title.
+
+* Removed the "lazy data" line in the DESCRIPTION file.
+
+* Set the "create_annotation_file" example to not run.
+
+* Replaced "travis" badge in README with "GitHub Actions" badge.
 
 
 

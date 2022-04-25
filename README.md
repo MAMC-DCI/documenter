@@ -3,7 +3,7 @@ An R package for documenting files
 
 
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/documenter)](https://cran.r-project.org/package=documenter)
-[![Travis-CI Build Status](https://travis-ci.org/MAMC-DCI/documenter.svg?branch=master)](https://travis-ci.org/MAMC-DCI/documenter#)
+[![R-CMD-check](https://github.com/MAMC-DCI/documenter/workflows/R-CMD-check/badge.svg)](https://github.com/MAMC-DCI/documenter/actions)
 [![Build status](https://ci.appveyor.com/api/projects/status/rmci2ek7qdsshrsu?svg=true)](https://ci.appveyor.com/project/mamcdci/documenter)
 [![Coverage Status](https://img.shields.io/codecov/c/github/mamc-dci/documenter/master.svg)](https://codecov.io/github/mamc-dci/documenter?branch=master)
 [![DOI](https://zenodo.org/badge/153316232.svg)](https://zenodo.org/badge/latestdoi/153316232)

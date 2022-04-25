@@ -8,7 +8,7 @@
 #' @export
 #'
 #' @examples
-#' create_annotation_file()
+#' \dontrun{create_annotation_file()}
 create_annotation_file <- function(
   title = NULL,
   annotation_file = NULL

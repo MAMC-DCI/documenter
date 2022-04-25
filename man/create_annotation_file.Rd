@@ -15,5 +15,5 @@ create_annotation_file(title = NULL, annotation_file = NULL)
 Create a template annotation file.
 }
 \examples{
-create_annotation_file()
+\dontrun{create_annotation_file()}
 }

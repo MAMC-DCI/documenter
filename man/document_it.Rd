@@ -4,8 +4,7 @@
 \alias{document_it}
 \title{Generate documentation for the files of a directory.}
 \usage{
-document_it(input_directory, output_file, annotation_file = NULL,
-  title = NULL)
+document_it(input_directory, output_file, annotation_file = NULL, title = NULL)
 }
 \arguments{
 \item{input_directory}{The directory of files to be documented.}
