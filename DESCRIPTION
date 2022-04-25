@@ -1,7 +1,7 @@
 Package: documenter
 Type: Package
 Title: Documents Files
-Version: 0.1.1
+Version: 0.1.2
 Authors@R: c(
     person("Zachary", "Colburn", email = "zcolburn@gmail.com", role = c("aut", "cre")),
     person("Madigan Army Medical Center - Department of Clinical Investigation", email = "usarmy.jblm.medcom-mamc.mbx.dci@mail.mil", role = c("cph", "fnd"))

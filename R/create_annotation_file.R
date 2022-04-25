@@ -19,7 +19,7 @@ create_annotation_file <- function(
   }else if(
     !(
       (length(class(title)) == 1) &&
-      (class(title) == "character") &&
+      ("character" %in% class(title)) &&
       (length(title) == 1)
     )
   ){
@@ -33,7 +33,7 @@ create_annotation_file <- function(
   if(
     !(
       (length(class(annotation_file)) == 1) &&
-      (class(annotation_file) == "character") &&
+      ("character" %in% class(annotation_file)) &&
       (length(annotation_file) == 1)
     )
   ){

@@ -28,7 +28,7 @@ document_it <- function(
     !(
       !is.null(input_directory) &&
       (length(class(input_directory)) == 1) &&
-      (class(input_directory) == "character") &&
+      ("character" %in% class(input_directory)) &&
       (length(input_directory) == 1) &&
       (nchar(input_directory) > 0) &&
       (dir.exists(input_directory))
@@ -43,7 +43,7 @@ document_it <- function(
     !(
       !is.null(output_file) &&
       (length(class(output_file)) == 1) &&
-      (class(output_file) == "character") &&
+      ("character" %in% class(output_file)) &&
       (length(output_file) == 1) &&
       (nchar(output_file) > 0)
     )
@@ -61,7 +61,7 @@ document_it <- function(
   if(!is.null(title)){
     if(!(
       (length(class(title)) == 1) &&
-      (class(title) == "character") &&
+      ("character" %in% class(title)) &&
       (length(title) == 1)
     )){
       stop("title is invalid.")
@@ -73,7 +73,7 @@ document_it <- function(
     !is.null(annotation_file) &&
     !(
       (length(class(annotation_file)) == 1) &&
-      (class(annotation_file) == "character") &&
+      ("character" %in% class(annotation_file)) &&
       (length(annotation_file) == 1) &&
       (nchar(annotation_file) > 0) &&
       (file_test("-f", annotation_file))
