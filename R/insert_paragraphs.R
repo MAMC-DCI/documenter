@@ -23,7 +23,7 @@ insert_paragraphs <- function(
   iteration <- 0
   for(i in vec){
     officer::cursor_end(denv$docx)
-    cursor_pos <- denv$docx$doc_obj$get_at_cursor()
+    cursor_pos <- officer::docx_current_block_xml(denv$docx)
     iteration <- iteration + 1
     # Retrieve text.
     string <- i
