@@ -145,46 +145,4 @@ test_that(
   }
 )
 
-test_that(
-  "valid inputs produce valid output",
-  {
-    # Generate data.
-    set.seed(1)
-    valid_input_dir <- system.file(
-      package = "documenter",
-      "extdata", "example"
-    )
-    new_output_dir <- tempdir()
-    valid_output_file <- file.path(new_output_dir, "test")
 
-    expect_error({
-      document_it(
-        input_directory = valid_input_dir,
-        output_file = valid_output_file,
-        annotation_file = NULL
-      )
-    }, NA)
-
-    expect_error({
-      document_it(
-        input_directory = valid_input_dir,
-        output_file = valid_output_file,
-        annotation_file = system.file(
-          package = "documenter",
-          "extdata", "example", "annotation_file.yml"
-        )
-      )
-    }, NA)
-
-    expect_error({
-      document_it(
-        input_directory = valid_input_dir,
-        output_file = valid_output_file,
-        annotation_file = system.file(
-          package = "documenter",
-          "extdata", "example", "test_annotation_file_1.yml"
-        )
-      )
-    }, NA)
-  }
-)
