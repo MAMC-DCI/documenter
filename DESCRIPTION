@@ -13,7 +13,6 @@ Encoding: UTF-8
 Imports: officer,
     magrittr,
     htmltools,
-    xml2,
     yaml
 Suggests: covr,
     testthat,

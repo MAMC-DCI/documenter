@@ -6,4 +6,7 @@
 * Fixed error in configuration of GitHub actions.
 
 
+* Removed xml2 import
+
+
 

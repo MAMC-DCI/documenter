@@ -14,7 +14,7 @@
 #' input <- system.file("extdata", "example", package = "documenter")
 #' document_it(
 #' input_directory = input,
-#' output_file = file.path(tempdir(), "documentation"),
+#' output_file = tempfile("documentation"),
 #' annotation_file = NULL
 #' )
 document_it <- function(
