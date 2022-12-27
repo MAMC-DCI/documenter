@@ -128,42 +128,10 @@ document_it <- function(
 
   denv <- new.env()
   # Modify document.xml by replacing tags with their corresponding annotation.
-  denv$docx <- officer::read_docx()
-  officer::body_add_par(
-    denv$docx,
-    htmltools::htmlEscape(
-      gsub("$\n|$\r", "", annotations$tags["title"])
-    ),
-    style = "graphic title"
+  template <- system.file(
+    package = "documenter", "extdata", "doc_example", "documentation.docx"
   )
-  officer::cursor_end(denv$docx)
-  insert_paragraphs(denv, annotations$tags["subtitle"])
-  insert_paragraphs(denv, annotations$tags["cover_notes"])
-  insert_paragraphs(denv, annotations$tags["date"])
-  insert_paragraphs(denv, annotations$tags["authors"])
-  officer::cursor_end(denv$docx)
-  officer::body_add_break(denv$docx, pos = "after")
-  officer::cursor_end(denv$docx)
-  officer::body_add_par(
-    denv$docx,
-    "Table of Contents",
-    style = section_title_style
-  )
-  officer::cursor_end(denv$docx)
-  officer::body_add_toc(denv$docx, style  = NULL, level = 1)
-  officer::cursor_end(denv$docx)
-  officer::body_add_break(denv$docx, pos = "after")
-  officer::cursor_end(denv$docx)
-  officer::body_add_par(
-    denv$docx,
-    "Overview",
-    style = title_style
-  )
-  officer::cursor_end(denv$docx)
-  insert_paragraphs(denv, overview)
-  officer::cursor_end(denv$docx)
-  officer::body_add_break(denv$docx, pos = "after")
-  officer::cursor_end(denv$docx)
+  denv$docx <- officer::read_docx(template)
 
   # Generate file list and match to annotations.
   files <- list.files(
@@ -221,14 +189,14 @@ document_it <- function(
       contents <- readLines(annotation_df[i,"path"])
       contents[contents == ""] <- " "
     })
-    # tryCatch(
-    #   {
-    #     contents <- readLines(annotation_df[i,"path"])
-    #   },
-    #   error = function(e){
-    #     contents <- "File not found!"
-    #   }
-    # )
+    tryCatch(
+      {
+        contents <- readLines(annotation_df[i,"path"])
+      },
+      error = function(e){
+        contents <- "File not found!"
+      }
+    )
     # Clean the contents.
     contents <- gsub("\n|\r|\n\r", "", contents)
 
@@ -245,6 +213,46 @@ document_it <- function(
     if(is.null(comments) || (length(comments) == 0)){comments <- " "}
 
     # Append data.
+    has_metadata <- FALSE
+    # Add the document contents.
+    officer::cursor_end(denv$docx)
+    insert_paragraphs(denv, contents)
+    officer::cursor_end(denv$docx)
+    officer::body_add_par(
+      denv$docx,
+      "--- Document Contents ---",
+      style = section_title_style
+    )
+
+    # Add comments if present.
+    officer::cursor_end(denv$docx)
+    if(
+      (length(comments) > 1) ||
+      (comments[1] != " ")
+    ){
+      insert_paragraphs(denv, comments)
+      officer::body_add_par(
+        denv$docx,
+        "--- Comments ---",
+        style = section_title_style
+      )
+      has_metadata <- TRUE
+    }
+
+    # Add the description if it is present.
+    if(
+      (length(description) > 1) ||
+      (description[1] != " ")
+    ){
+      insert_paragraphs(denv, description)
+      officer::body_add_par(
+        denv$docx,
+        "--- Description ---",
+        style = section_title_style
+      )
+      has_metadata <- TRUE
+    }
+
     # Add the page title.
     section_name <- htmltools::htmlEscape(rownames(annotation_df)[i])
     section_name <- gsub(
@@ -254,47 +262,9 @@ document_it <- function(
     officer::body_add_par(
       denv$docx,
       section_name,
-      style = title_style,
-      pos = "on"
+      style = title_style
     )
     officer::cursor_end(denv$docx)
-    has_metadata <- FALSE
-    # Add the description if it is present.
-    if(
-      (length(description) > 1) ||
-      (description[1] != " ")
-    ){
-      officer::body_add_par(
-        denv$docx,
-        "--- Description ---",
-        style = section_title_style
-      )
-      insert_paragraphs(denv, description)
-      has_metadata <- TRUE
-    }
-    # Add comments if present.
-    officer::cursor_end(denv$docx)
-    if(
-      (length(comments) > 1) ||
-      (comments[1] != " ")
-    ){
-      officer::body_add_par(
-        denv$docx,
-        "--- Comments ---",
-        style = section_title_style
-      )
-      insert_paragraphs(denv, comments)
-      has_metadata <- TRUE
-    }
-    # Add the document contents.
-    officer::cursor_end(denv$docx)
-    officer::body_add_par(
-      denv$docx,
-      "--- Document Contents ---",
-      style = section_title_style
-    )
-    officer::cursor_end(denv$docx)
-    insert_paragraphs(denv, contents)
 
     # Clean up.
     rm(list = c("comments","description", "contents","section_name"))
@@ -316,6 +286,44 @@ document_it <- function(
   #     }
   #   )
   # }
+
+  # officer::body_add_par(
+  #   denv$docx,
+  #   htmltools::htmlEscape(
+  #     gsub("$\n|$\r", "", annotations$tags["title"])
+  #   ),
+  #   style = "graphic title"
+  # )
+  officer::cursor_end(denv$docx)
+  officer::body_add_break(denv$docx, pos = "after")
+  officer::cursor_end(denv$docx)
+
+  officer::cursor_end(denv$docx)
+  officer::body_add_toc(denv$docx, style  = NULL, level = 1)
+  officer::cursor_end(denv$docx)
+  officer::body_add_par(
+    denv$docx,
+    "Table of Contents",
+    style = section_title_style
+  )
+  officer::cursor_end(denv$docx)
+  officer::body_add_break(denv$docx, pos = "after")
+  officer::cursor_end(denv$docx)
+
+  insert_paragraphs(denv, overview)
+  officer::cursor_end(denv$docx)
+
+  insert_paragraphs(denv, annotations$tags["authors"])
+  insert_paragraphs(denv, annotations$tags["date"])
+  insert_paragraphs(denv, annotations$tags["cover_notes"])
+  insert_paragraphs(denv, annotations$tags["subtitle"])
+  officer::body_add_par(
+    denv$docx,
+    "Overview",
+    style = section_title_style
+  )
+  officer::cursor_end(denv$docx)
+
 
   # Print the docx object to a file.
   print(denv$docx, target = output_file)
